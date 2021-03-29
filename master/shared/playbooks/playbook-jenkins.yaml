@@ -1,0 +1,54 @@
+---
+- hosts: jenkins-servers
+  remote_user: root
+  tasks:
+    - name: Registrar Llave de Jenkins
+      apt_key:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        state: present
+
+    - name: Registrar Repositorio de Jenkins
+      apt_repository:
+        repo: deb https://pkg.jenkins.io/debian-stable binary/
+        state: present
+
+    - name: Actualizar Cache de Repositorios Apt
+      apt:
+        update_cache: yes
+
+    - name: Instalar Java
+      apt:
+        name: openjdk-8-jdk
+        state: present
+
+    - name: Instalar Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Iniciar Jenkins
+      service:
+        name: jenkins
+        state: started
+
+    - name: Esperar Puerto de Jenkins
+      wait_for:
+        host: 0.0.0.0
+        port: 8080
+        delay: 2
+        state: started
+        timeout: 60
+        connect_timeout: 2
+
+    - name: Esperar Password Inicial
+      wait_for:
+        path: /var/lib/jenkins/secrets/initialAdminPassword
+
+    - name: Leer archivo initialAdminPassword
+      shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+      changed_when: false
+      register: infoAdminPassword
+
+    - name: Imprimir password
+      debug:
+        var: infoAdminPassword.stdout
