@@ -24,6 +24,11 @@ Desde el terminal ssh (dentro del master) ejecutar:
 
 `ansible-playbook -i projects/inventory/inventories projects/playbooks/playbook-jenkins.yaml`
 
+o
+
+`ansible-playbook --connection=local -i inventory.yml playbook-jenkins.yml`
+
+
 ### LEVANTAR VAGRANT ALTERNATIVA
 
 Ejecutar:
@@ -33,5 +38,10 @@ Ejecutar:
 ## Abrir Jenkins
 
 - Copiar Password desde TASK \[Imprimir password\]
+
+### Ejecutar en Windows 
+
+- Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor
+
 
 - Abrir url [192.168.3.10:8080](192.168.3.10:8080)
