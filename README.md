@@ -38,10 +38,11 @@ Ejecutar:
 ## Abrir Jenkins
 
 - Copiar Password desde TASK \[Imprimir password\]
+- Abrir url [192.168.3.10:8080](192.168.3.10:8080)
 
 ### Ejecutar en Windows 
 
-- Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor
+- Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor  (En PowerShell)
 
 
-- Abrir url [192.168.3.10:8080](192.168.3.10:8080)
+
